@@ -115,7 +115,7 @@ class MainWindow(Tk): # класс окна создания модели
 
         self.ModelDescriptionFrame = tk.Frame(self.ModelDescription, background="#d7fac8")
         self.ModelDescriptionFrame.pack(padx=[5, 10], pady=[10, 5], expand=True, fill='both')
-
+        
         self.ModelDescriptionLabel = ttk.Label(self.ModelDescriptionFrame, padding=5, background="#77dd77", font="Arial 11 normal roman", text="Description")
         self.ModelDescriptionLabel.pack(anchor=NW, fill=X)
 
@@ -124,16 +124,22 @@ class MainWindow(Tk): # класс окна создания модели
         
         ttk.Label(self.ModelDescriptionFrame, text="Model consist of:", background="#d7fac8", padding=[5, 0, 0, 5]).pack(anchor=NW, fill=X)
 
+        # содержит таблицу
+        
         self.DescriptionFrame = tk.Frame(self.ModelDescriptionFrame)
         self.DescriptionFrame.pack(padx=5, pady=5, expand=True, fill='both')
 
         self.DescriptionFrame.rowconfigure(index=0, weight=1)
         self.DescriptionFrame.columnconfigure(index=0, weight=1)
 
+        # заглушка
+        
         self.DescriptionColumns = ("Alias", "Short name", "Function", "SID")
         self.DesData = [("s1", "Ura", "substrate", "SS000040"),
                         ("s1", "Ura", "substrate", "SS000040")]
 
+        # настройки таблицы
+        
         self.DescriptionTree = ttk.Treeview(self.DescriptionFrame, 
                                             columns=self.DescriptionColumns, 
                                             show="tree headings",
@@ -146,19 +152,20 @@ class MainWindow(Tk): # класс окна создания модели
         self.DescriptionTree.column("#3", stretch=True, minwidth=100, width=100)
         self.DescriptionTree.column("#4", stretch=True, minwidth=100)
         
-        # self.DescriptionTree.heading("#0", text="Huy")
         self.DescriptionTree.heading("Alias", text="Alias")
         self.DescriptionTree.heading("Short name", text="Short name")
         self.DescriptionTree.heading("Function", text="Function")
         self.DescriptionTree.heading("SID", text="SID")
 
-        
+        # добавление картиночки и данных
 
         self.ImProt = tk.PhotoImage(file="protein.png")
 
         for d in self.DesData:
             self.DescriptionTree.insert("", END, image=self.ImProt, value=(d) )
 
+        # прокрутка
+        
         self.XDesScrollBar = ttk.Scrollbar(self.DescriptionFrame, orient='horizontal', command=self.DescriptionTree.xview)
         self.DescriptionTree.configure(xscrollcommand=self.XDesScrollBar.set)
         self.XDesScrollBar.grid(row=1, column=0, sticky="ew")
@@ -171,7 +178,7 @@ class MainWindow(Tk): # класс окна создания модели
         self.Star.grid(row=1, column=1, sticky='nsew')
             
 
-        # модуль мат модели
+        # модуль мат модели (следующий на создание)
         
         self.MathModel = tk.Frame(self.MainFrame, background="green")
         self.MathModel.place(rely=0.5, relheight=0.5, relwidth=1)
